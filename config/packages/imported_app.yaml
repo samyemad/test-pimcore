@@ -1,0 +1,33 @@
+imported_app:
+    executorConfig:
+        settings:
+            skipFirstRow: true
+            delimiter: ","
+            enclosure: '"'
+            escape: '\'
+    messageConfig:
+        numOfProcessedRows: 50
+    creationConfig:
+        settings:
+            pathLocationFolder: "/imported"
+    mappingConfigs:
+        articleNumber:
+            dataSourceIndex: 0
+        manufacturer:
+            dataSourceIndex: 1
+        model:
+            dataSourceIndex: 2
+        description:
+            dataSourceIndex: [3,4]
+        cylinders:
+            dataSourceIndex: 5
+        horsepower:
+            dataSourceIndex: 7
+        productionYear:
+            dataSourceIndex: 8
+        country:
+            dataSourceIndex: 12
+        color:
+            dataSourceIndex: 13
+
+

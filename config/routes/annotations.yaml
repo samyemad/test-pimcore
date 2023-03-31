@@ -1,0 +1,6 @@
+Imported_website_test:
+    resource: '@ImportedAppBundle/Controller/'
+    type: annotation
+    prefix: /
+    options:
+        expose: true

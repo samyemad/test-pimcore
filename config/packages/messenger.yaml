@@ -1,0 +1,9 @@
+framework:
+
+    messenger:
+        transports:
+            custom_import:
+                dsn: 'doctrine://default?queue_name=custom_import'
+
+        routing:
+            'Imported\AppBundle\Message\ImporterMessage': custom_import
