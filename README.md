@@ -48,6 +48,8 @@ To make sure that the host's value is correct:
 3. Test Pimcore project is now available at the URLs described by the ddev CLI output.
 4. Optional: If you need to import the DB you can download the fresh dump from the server and use `ddev import-db` command to import it
 
+## MESSENGER Run
+1. You can run  [`messenger`] via this command ( ddev php bin/console messenger:consume custom_import -vv ) 
 ## Docker Setup
 
 ### Prerequisites
