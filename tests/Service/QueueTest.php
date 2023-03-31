@@ -9,12 +9,11 @@ use Imported\AppBundle\Services\Queue\DefaultDbQueue;
 class QueueTest extends KernelTestCase
 {
 
-
     public function testQueue()
     {
         $kernel = \Pimcore\Bootstrap::kernel();
         $queueService = $kernel->getContainer()->get(DefaultDbQueue::class);
-        $queueService->addItemToQueue('Asset-2',  'test data');
+        $queueService->addItemToQueue('test data','Asset-2');
 
         $count = $queueService->getQueueItemCountByGroup('Asset-2');
         $this->assertEquals($count, 1 );
@@ -25,7 +24,7 @@ class QueueTest extends KernelTestCase
         $this->assertEquals($entry['data'], 'test data');
         $queueService->deleteQueueItemById($queueIds[0]);
 
-        $count = $queueService->getQueueItemCount('Asset-2');
+        $count = $queueService->getQueueItemCountByGroup('Asset-2');
         $this->assertEquals(0, $count);
     }
 
