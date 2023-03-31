@@ -1,0 +1,25 @@
+name: test-pimcore
+type: php
+docroot: "public"
+php_version: "8.1"
+webserver_type: apache-fpm
+router_http_port: "80"
+router_https_port: "443"
+xdebug_enabled: false
+additional_hostnames: []
+additional_fqdns: []
+database:
+    type: mariadb
+    version: "10.7"
+nfs_mount_enabled: false
+mutagen_enabled: false
+use_dns_when_possible: true
+composer_version: "2"
+web_environment: []
+webimage_extra_packages: ["cron --no-install-recommends", "dos2unix --no-install-recommends"]
+hooks:
+    post-start:
+        - composer: install --no-plugins --no-scripts
+        - exec: "./.ddev/scripts/pimcore/install.sh"
+        - exec: "bin/console doctrine:migration:migrate --no-interaction"
+        - exec: "bin/console app:add-unit"

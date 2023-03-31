@@ -1,0 +1,2 @@
+#!/bin/bash
+COMPOSER_MEMORY_LIMIT=-1 ./vendor/bin/pimcore-install --ignore-existing-config --admin-username=admin --admin-password=admin --mysql-host-socket=ddev-test-pimcore-db --mysql-username=db --mysql-password=db --mysql-database=db
