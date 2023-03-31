@@ -1,0 +1,72 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    Imported\AppBundle\:
+        resource: '../../*'
+        exclude: '../../{DependencyInjection,Entity,Migrations,Tests,Kernel.php}'
+
+    Imported\AppBundle\Controller\:
+        resource: "../../Controller"
+
+    Imported\AppBundle\Services\Provider\AssetProvider:
+        lazy: true
+
+    Imported\AppBundle\Services\Executor\CsvFileExecutor:
+        lazy: true
+        arguments:
+            $executorConfig: '%import_app.config.executor%'
+    Imported\AppBundle\Services\Creation\ObjectCreationElement:
+        lazy: true
+        arguments:
+            $creationConfig: '%import_app.config.creation%'
+    Imported\AppBundle\Services\Mapping\MappingConfiguration:
+        lazy: true
+        arguments:
+            $mappingConfigurations: '%import_app.mapping.configs%'
+    Imported\AppBundle\Services\Mapping\MappingInterface $mappingConfiguration: '@Imported\AppBundle\Services\Mapping\MappingConfiguration'
+    Imported\AppBundle\Services\Import\Creation\CreationElementInterface $objectCreationElement: '@Imported\AppBundle\Services\Creation\ObjectCreationElement'
+    Imported\AppBundle\Services\Import\Preparation\CsvImportPreparation: ~
+    Imported\AppBundle\Services\Import\Preparation\ImportPreparationInterface $csvImportPreparation: '@Imported\AppBundle\Services\Import\Preparation\CsvImportPreparation'
+    Imported\AppBundle\Services\Import\Process\CsvImportProcess: ~
+    Imported\AppBundle\Services\Import\Process\ImportProcessInterface $csvImportProcess: '@Imported\AppBundle\Services\Import\Process\CsvImportProcess'
+    Imported\AppBundle\Services\Provider\ProviderInterface $assetProvider: '@Imported\AppBundle\Services\Provider\AssetProvider'
+    Imported\AppBundle\Services\Executor\FileExecutorInterface $csvFileExecutor: '@Imported\AppBundle\Services\Executor\CsvFileExecutor'
+    Imported\AppBundle\Services\Queue\DefaultDbQueue:
+        public: true
+    Imported\AppBundle\Services\Queue\DbQueueInterface $defaultDbQueue: '@Imported\AppBundle\Services\Queue\DefaultDbQueue'
+    Imported\AppBundle\EventListener\DataProcessImportListener:
+        arguments:
+            $messageConfig: '%import_app.config.message%'
+        tags:
+            - { name: kernel.event_listener, event: 'Imported\AppBundle\Event\ProcessImportEvent', method: process }
+    Imported\AppBundle\Services\Handler\ImporterHandler:
+        tags:
+            - { name: messenger.message_handler }
+    Imported\AppBundle\EventListener\AdminImportedListener:
+        tags:
+            - { name: kernel.event_listener, event: pimcore.bundle_manager.paths.js, method: addJSFiles }
+
+
+
+    Imported\AppBundle\Services\Mapping\Data\SingleMappingData:
+        tags:
+            - { name: "importer.mapping_data.configuration_class", type: "simple" }
+
+    Imported\AppBundle\Services\Mapping\Data\OneToManyMappingData:
+        tags:
+            - { name: "importer.mapping_data.configuration_class", type: "oneToMany" }
+
+    Imported\AppBundle\Services\Mapping\Data\LocalizedMappingData:
+        tags:
+            - { name: "importer.mapping_data.configuration_class", type: "localized" }
+
+    Imported\AppBundle\Services\Mapping\Data\QuantityValueMappingData:
+        tags:
+            - { name: "importer.mapping_data.configuration_class", type: "quantityValue" }
+
+    Imported\AppBundle\Services\Mapping\Data\MultiValuesMappingData:
+        tags:
+            - { name: "importer.mapping_data.configuration_class", type: "multiValues" }
+
