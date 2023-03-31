@@ -1,0 +1,12 @@
+parameters:
+    level: 6
+    paths:
+        - lib
+        #- tests
+    inferPrivatePropertyTypeFromConstructor: true
+    excludePaths:
+             - 'lib/AppBundle/DependencyInjection/Configuration.php'
+    reportUnmatchedIgnoredErrors: false
+    checkMissingIterableValueType: false
+    checkGenericClassInNonGenericObjectType: false
+
