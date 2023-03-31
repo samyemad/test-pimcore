@@ -6,7 +6,7 @@ Developed by the samy Emad.
 ## Getting the files
 ```bash
 git clone 
-cd Imported-pimcore
+cd test-pimcore
 ```
 
 ## Dev Configuration
