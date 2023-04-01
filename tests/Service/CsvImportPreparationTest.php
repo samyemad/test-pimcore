@@ -1,6 +1,6 @@
 <?php
-namespace App\Tests\Service;
 
+namespace App\Tests\Service;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -22,7 +22,7 @@ class CsvImportPreparationTest extends KernelTestCase
      * @dataProvider preparationDataProvider
      * @param array $data
      */
-    public function testResult(array $data)
+    public function testCsvImportPreparation(array $data)
     {
         $importPreparation=new CsvImportPreparation($this->getAssetProviderMock(),$this->getCsvFileExecutorMock(),
             $this->getEventDispatcherMock(),$this->getLoggerMock());
