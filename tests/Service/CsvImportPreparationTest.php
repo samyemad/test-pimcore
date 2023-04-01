@@ -8,7 +8,6 @@ use Imported\AppBundle\Services\Provider\ProviderInterface;
 use Imported\AppBundle\Services\Executor\FileExecutorInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Imported\AppBundle\Services\Import\Preparation\CsvImportPreparation;
-use Pimcore\Bootstrap;
 
 class CsvImportPreparationTest extends KernelTestCase
 {
@@ -34,7 +33,7 @@ class CsvImportPreparationTest extends KernelTestCase
         $mock = $this
             ->getMockBuilder(ProviderInterface::class)
             ->getMock();
-        $mock
+        $mock->expects(self::once())
             ->method('process')
             ->willReturn(PIMCORE_WEB_ROOT.'/car-export.csv');
         return $mock;
@@ -45,7 +44,7 @@ class CsvImportPreparationTest extends KernelTestCase
         $mock = $this
             ->getMockBuilder(FileExecutorInterface::class)
             ->getMock();
-        $mock
+        $mock->expects(self::once())
             ->method('executeFile')
             ->willReturn('Asset-2');
         return $mock;
